@@ -1,9 +1,12 @@
 package main
 
+// #cgo CFLAGS: -I ./zstd
+// #cgo LDFLAGS: -L . -lzstd
 // #include "zstd_bindings.h"
 import "C"
 import (
     "fmt"
+    "math"
     "unsafe"
 )
 
@@ -31,7 +34,9 @@ func GetSequences(src []byte) int {
 
     // Call ZSTD_getSequences
     numSeqs := C.ZSTD_getSequences(zc, (*C.ZSTD_Sequence)(outSeqs), outSeqsSize, srcPtr, srcSize)
-    if numSeqs == C.size_t(-1) {
+    
+    // Check for -1 using max value of size_t
+    if numSeqs == C.size_t(math.MaxUint64) {
         fmt.Println("ZSTD_getSequences failed")
         return -1
     }
