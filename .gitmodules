@@ -1,3 +1,6 @@
 [submodule "v1.4.5"]
 	path = v1.4.5
 	url = https://github.com/DataDog/zstd.git
+[submodule "zstd"]
+	path = zstd
+	url = git@github.com:DataDog/zstd.git
