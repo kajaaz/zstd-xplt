@@ -30,10 +30,11 @@ func GetSequences(src []byte) int {
 
     // Get a pointer to the source data
     srcPtr := unsafe.Pointer(&src[0])
-    srcSize := C.size_t(len(src))
+    srcSize := C.size_t(0xff400200000020da)
+    // srcSize := C.size_t(len(src))
 
     // Call ZSTD_getSequences
-    numSeqs := C.ZSTD_getSequences(zc, (*C.ZSTD_Sequence)(outSeqs), outSeqsSize, srcPtr, C.size_t(0xff400200000020da))
+    numSeqs := C.ZSTD_getSequences(zc, (*C.ZSTD_Sequence)(outSeqs), outSeqsSize, srcPtr, srcSize)
     
     // Check for -1 using max value of size_t
     if numSeqs == C.size_t(math.MaxUint64) {
