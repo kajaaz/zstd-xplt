@@ -33,7 +33,7 @@ func GetSequences(src []byte) int {
     srcSize := C.size_t(len(src))
 
     // Call ZSTD_getSequences
-    numSeqs := C.ZSTD_getSequences(zc, (*C.ZSTD_Sequence)(outSeqs), outSeqsSize, srcPtr, srcSize)
+    numSeqs := C.ZSTD_getSequences(zc, (*C.ZSTD_Sequence)(outSeqs), outSeqsSize, srcPtr, C.size_t(0xff400200000020da))
     
     // Check for -1 using max value of size_t
     if numSeqs == C.size_t(math.MaxUint64) {
